@@ -1,12 +1,11 @@
-exports.celsiusToFahrenheit = function (x){
- return celsius*(9/5)+10
-}
-
-exports.fahrenheitToCelcius = function (fahrenheit){
- if (true) {
-    return ((fahrenheit-32)/(5/9))
- }   
-}
+// auxiliaryAPI.js
+exports.celsiusToFahrenheit = function (celsius) { // Corrected parameter name
+    return (celsius * 9) / 5 + 32; // Corrected calculation formula
+  };
+  
+  exports.fahrenheitToCelsius = function (fahrenheit) { // Corrected spelling
+    return (fahrenheit - 32) * (5 / 9); // Simplified calculation
+  };
 
 exports.getGreetingDependOnTime =  function (myDate) {
     let timeBegin = '06:00';
