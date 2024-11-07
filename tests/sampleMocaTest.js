@@ -34,4 +34,6 @@ describe('#sum()', function () {
     it('should return the number itself for an array with one element', function () {
         expect(sum([10])).to.equal(10);
     });
+    
 });
+

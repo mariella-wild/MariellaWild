@@ -1,30 +1,75 @@
 const expect = require('chai').expect;
-const apiTemperature = require('../public/js/auxiliaryAPI')
+const { fahrenheitToCelsius, celsiusToFahrenheit }  = require('../public/js/auxiliaryAPI')
+const { getGreetingDependOnTime } = require('../public/js/auxiliaryAPI')
 
-describe('Temperature Conversion Functions', () => {
-    // Test for fahrenheitToCelsius function
-    describe('fahrenheitToCelsius()', () => {
-      it('should convert Fahrenheit to Celsius correctly', () => {
-        const result = apiTemperature.fahrenheitToCelsius(32);
-        expect(result).to.equal(0); // 32°F should equal 0°C
-      });
-      
-      it('should handle negative values correctly', () => {
-        const result = apiTemperature.fahrenheitToCelsius(-40);
-        expect(result).to.equal(-40); // -40°F should equal -40°C
-      });
-    });
-  
-    // Test for celsiusToFahrenheit function
-    describe('celsiusToFahrenheit()', () => {
-      it('should convert Celsius to Fahrenheit correctly', () => {
-        const result = apiTemperature.celsiusToFahrenheit(0);
-        expect(result).to.equal(32); // 0°C should equal 32°F
-      });
-  
-      it('should handle negative values correctly', () => {
-        const result = apiTemperature.celsiusToFahrenheit(-40);
-        expect(result).to.equal(-40); // -40°C should equal -40°F
-      });
-    });
+describe('fahrenheitToCelsius()', () => {
+  it('test below 32', () => {
+      const result = fahrenheitToCelsius(20);
+      expect(result).to.be.closeTo(-6.67, 0.01);
   });
+
+  it('test over 32', () => {
+      const result = fahrenheitToCelsius(40);
+      expect(result).to.be.closeTo(4.44, 0.01);
+  });
+
+  it('test exact 32', () => {
+      const result = fahrenheitToCelsius(32);
+      expect(result).to.equal(0);
+  });
+
+  it('test 0', () => {
+      const result = fahrenheitToCelsius(0);
+      expect(result).to.be.closeTo(-17.78, 0.01);
+  });
+
+  it('test negative number', () => {
+      const result = fahrenheitToCelsius(-40);
+      expect(result).to.equal(-40);
+  });
+
+  it('test float number', () => {
+      const result = fahrenheitToCelsius(98.6);
+      expect(result).to.be.closeTo(37, 0.01);
+  });
+});
+
+describe('celsiusToFahrenheit()', () => {
+  it('test below 0', () => {
+      const result = celsiusToFahrenheit(-10);
+      expect(result).to.be.closeTo(14, 0.01);
+  });
+
+  it('test over 0', () => {
+      const result = celsiusToFahrenheit(10);
+      expect(result).to.be.closeTo(50, 0.01);
+  });
+
+  it('test exact 0', () => {
+      const result = celsiusToFahrenheit(0);
+      expect(result).to.equal(32);
+  });
+
+  it('test positive number', () => {
+      const result = celsiusToFahrenheit(25);
+      expect(result).to.be.closeTo(77, 0.01);
+  });
+
+  it('test negative number', () => {
+      const result = celsiusToFahrenheit(-40);
+      expect(result).to.equal(-40);
+  });
+
+  it('test float number', () => {
+      const result = celsiusToFahrenheit(37);
+      expect(result).to.be.closeTo(98.6, 0.01);
+  });
+});
+describe('getGreetingDependOnTime()', () => {
+  it('should return "Guten Morgen"', () => {
+      const date = new Date('2020-01-01T05:00:00');
+      const result = getGreetingDependOnTime(date);
+      expect(result).to.equal('Guten Morgen');
+  });
+
+});
