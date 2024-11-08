@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+# Pipeline wird bei jedem Push und Pull-Request auf dem main-Branch ausgeführt
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout-Code aus dem Repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Setze Node.js-Umgebung auf
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Installiere die Abhängigkeiten
+      - name: Install dependencies
+        run: npm install
+
+      # Baue das Projekt
+      - name: Build project
+        run: npm run build
+
+      # Führe Tests aus
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to production
+        run: |
+          echo "Deployment starten..."
+          # Hier könnte der Befehl zum Deployment kommen, z. B. Heroku, AWS, etc.
