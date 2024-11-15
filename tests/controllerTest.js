@@ -71,5 +71,4 @@ describe('getGreetingDependOnTime()', () => {
       const result = getGreetingDependOnTime(date);
       expect(result).to.equal('Guten Morgen');
   });
-
 });
